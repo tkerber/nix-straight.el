@@ -8,7 +8,7 @@
                             (let ((pkg (if (listp recipe)
                                            (car recipe)
                                          recipe)))
-                              (message "[nix-straight.el] Collectiong package '%s' from recipe '%s'" pkg recipe)
+                              (message "[nix-straight.el] Collecting package '%s' from recipe '%s'" pkg recipe)
                               (add-to-list 'nix-straight--packages pkg))))
 
     (load init-file nil nil t)
