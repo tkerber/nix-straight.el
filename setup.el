@@ -6,7 +6,7 @@
     (advice-add 'straight-use-package
                 :override (lambda (recipe &rest r)
                             (let ((pkg (if (listp recipe)
-                                              (car recipe)
+                                           (car recipe)
                                          recipe)))
                               (message "[nix-straight.el] Collectiong package '%s' from recipe '%s'" pkg recipe)
                               (add-to-list 'nix-straight--packages pkg))))
@@ -32,6 +32,14 @@
                           (straight-override-recipe recipe))
                         (apply orig-fn r)))
   (load init-file nil nil t))
+
+;; straight breaks for some reason when
+;; it tries to build packages in a nativeComp emacs
+(with-eval-after-load "comp"
+  (advice-add 'straight--native-compile-file-p
+        :before (lambda (&rest r)
+                    (if (not (boundp 'comp-deferred-compilation-deny-list))
+                        (defvar comp-deferred-compilation-deny-list '())))))
 
 (provide 'setup)
 ;;; setup.el ends here
