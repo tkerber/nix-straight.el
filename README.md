@@ -2,7 +2,7 @@
 
 Low-level Nix integration to [straight.el](https://github.com/raxod502/straight.el)
 
-See [nix-doom-emacs](https://github.com/vlaci/nix-doom-emacs) for a usage example.
+See [nix-doom-emacs](https://github.com/nix-community/nix-doom-emacs) for a usage example.
 
 There are a couple of issues you may need to be aware of:
 * Package names are dumbly inferred using the `meta.homepage` and `ename`
