@@ -33,9 +33,5 @@
                         (apply orig-fn r)))
   (load init-file nil nil t))
 
-(advice-add 'straight--executable-find
-            ;; straight doesn't use git in this setup
-            :override (lambda (name) (eq name "git")))
-
 (provide 'setup)
 ;;; setup.el ends here
