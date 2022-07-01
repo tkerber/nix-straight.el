@@ -59,8 +59,8 @@ let
             --directory=${epkgs.straight}/share/emacs/site-lisp \
             --load=${./setup.el} \
             ${concatMapStringsSep "\n" (f: "--load=${f}") emacsLoadFiles} \
-            --eval="(nix-straight-get-used-packages \"${emacsInitFile}\")" \
-            ${escapeShellArgs emacsArgs} > $out
+            --eval="(nix-straight-get-used-packages \"${emacsInitFile}\" \"$out\")" \
+            ${escapeShellArgs emacsArgs}
       runHook postInstall
     '';
   };

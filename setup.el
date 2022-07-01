@@ -1,7 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 (require 'json)
 
-(defun nix-straight-get-used-packages (init-file)
+(defun nix-straight-get-used-packages (init-file output-file)
   (let ((nix-straight--packages nil))
     (advice-add 'straight-use-package
                 :override (lambda (recipe &rest r)
@@ -12,9 +12,10 @@
                               (add-to-list 'nix-straight--packages pkg))))
 
     (load init-file nil nil t)
-    (princ (if (null nix-straight--packages)
+    (let ((json-pkgs (if (null nix-straight--packages)
                "[]"
-             (json-encode nix-straight--packages)))
+             (json-encode nix-straight--packages))))
+      (write-region json-pkgs nil output-file))
 
     nix-straight--packages))
 
