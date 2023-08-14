@@ -1,6 +1,9 @@
 ;;; -*- lexical-binding: t; -*-
 (require 'json)
 
+(unless (boundp 'native-comp-deferred-compilation-deny-list)
+  (defvaralias 'native-comp-deferred-compilation-deny-list 'native-comp-jit-compilation-deny-list))
+
 (defun nix-straight-get-used-packages (init-file output-file)
   (let ((nix-straight--packages nil))
     (advice-add 'straight-use-package
@@ -40,7 +43,9 @@
   (advice-add 'straight--native-compile-file-p
         :before (lambda (&rest r)
                     (if (not (boundp 'comp-deferred-compilation-deny-list))
-                        (defvar comp-deferred-compilation-deny-list '())))))
+                        (defvar comp-deferred-compilation-deny-list '()))
+
+                    )))
 
 (provide 'setup)
 ;;; setup.el ends here
